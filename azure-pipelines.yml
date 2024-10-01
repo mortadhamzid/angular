@@ -8,15 +8,92 @@ trigger:
 
 pool:
   name: 'Default'
-  
+
 steps:
-- task: NodeTool@0
+- task: UseNode@1
   inputs:
-    versionSpec: '20.x'
+    version: '12.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-  displayName: 'npm install and build'
+- task: Npm@1
+  displayName: 'Install Angular CLI'
+  inputs:
+    command: 'custom'
+    customCommand: 'install -g @angular/cli'
+
+- task: Npm@1
+  displayName: 'Install Dependencies'
+  inputs:
+    command: 'install'
+
+# Install Snyk
+- task: Npm@1
+  displayName: 'Install Snyk'
+  inputs:
+    command: 'custom'
+    customCommand: 'install -g snyk'
+
+# Run Snyk Test
+- task: Bash@3
+  displayName: 'Run Snyk Security Test'
+  inputs:
+    targetType: 'inline'
+    script: |
+      snyk auth $SNYK_TOKEN
+      snyk test
+      snyk monitor
+
+
+# Run Angular Tests and Build
+- task: Bash@3
+  displayName: 'Angular Test and Build'
+  inputs:
+    targetType: 'inline'
+    script: |
+      ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
+      ng build --prod
+
+
+# Generate Code Coverage Report
+- task: reportgenerator@5
+  displayName: 'Generate Code Coverage Report'
+  inputs:
+    reports: 'coverage\iRED-Web-Portal\cobertura-coverage.xml'
+    targetdir: 'coverage\iRED-Web-Portal\Reports'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '$(Build.SourcesDirectory)/reports/junit.xml'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage'
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)\coverage\iRED-Web-Portal\cobertura-coverage.xml'
+    reportDirectory: '$(Build.SourcesDirectory)\coverage\iRED-Web-Portal\Reports'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive Artifacts'
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/dist/iRED-Web-Portal'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+# Send Slack Notification
+- task: Bash@3
+  displayName: 'Send Slack Notification'
+  inputs:
+    targetType: 'inline'
+    script: |
+      curl -X POST -H 'Content-type: application/json' --data '{"text":"Build $(Build.BuildId) for Angular SPA is successful."}' $SLACK_WEBHOOK_URL
