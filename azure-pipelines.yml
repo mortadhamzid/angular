@@ -55,10 +55,9 @@ steps:
 
 
 # Run Angular Tests and Build
-- task: Bash@3
+- task: CmdLine@2
   displayName: 'Angular Test and Build'
   inputs:
-    targetType: 'inline'
     script: |
       ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
       ng build --prod
