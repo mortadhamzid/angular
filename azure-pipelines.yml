@@ -5,10 +5,10 @@ pool:
   name: 'Default'
 
 steps:
-- task: UseNode@1
-  inputs:
-    version: '18.19.1'
-  displayName: 'Install Node.js'
+#- task: UseNode@1
+#  inputs:
+#    version: '18.19.1'
+#  displayName: 'Install Node.js'
 
 - task: Npm@1
   displayName: 'Install Angular CLI'
@@ -21,14 +21,14 @@ steps:
 
 
 
-- script: curl -L https://www.npmjs.com/install.sh | sh
-  displayName: 'Install npm'
+#- script: curl -L https://www.npmjs.com/install.sh | sh
+#  displayName: 'Install npm'
 
-- script: npm cache clean --force
-  displayName: 'Clean Yarn Cache'
+#- script: npm cache clean --force
+#  displayName: 'Clean Yarn Cache'
   
-- script: npm install
-  displayName: 'Install npm'
+#- script: npm install
+#  displayName: 'Install npm'
 
 # Run Angular Tests and Build
 - task: Bash@3
