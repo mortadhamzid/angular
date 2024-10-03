@@ -1,6 +1,6 @@
 {
   "name": "platform-server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "#comment-1": "The below is used is for payload size checks",
