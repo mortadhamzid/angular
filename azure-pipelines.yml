@@ -20,8 +20,11 @@ steps:
     npm install -g yarn
   displayName: 'Install Yarn'
 
+- script: yarn cache clean
+  displayName: 'Clean Yarn Cache'
+
 - script: |
-    yarn install
+    yarn install --skip-integrity-check
   displayName: 'Install Dependencies with Yarn'
 
 
