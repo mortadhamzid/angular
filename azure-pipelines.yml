@@ -16,14 +16,19 @@ steps:
     command: 'custom'
     customCommand: 'install -g @angular/cli'
 
+
+
+
 - script: npm cache clean --force
   displayName: 'Clean Yarn Cache'
 
-- task: Npm@1
-  displayName: 'Install Dependencies'
-  inputs:
-    command: 'custom'
-    customCommand: 'install --legacy-peer-deps'
+- script: |
+    echo "Installing Node.js..."
+    sudo apt update
+    sudo apt install -y npm
+    echo " npm installed."
+  displayName: 'Install Node.js and npm'
+
 
 # Run Angular Tests and Build
 - task: Bash@3
