@@ -8,7 +8,7 @@ pool:
 steps:
 - task: UseNode@1
   inputs:
-    version: '12.x'
+    version: '18.19.1'
   displayName: 'Install Node.js'
 
 - task: Npm@1
@@ -20,8 +20,7 @@ steps:
 
 - script: npm cache clean --force
   displayName: 'Clean Yarn Cache'
-- script: npm install
-  displayName: 'Clean Yarn Cache'
+
 
 
 
