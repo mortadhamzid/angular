@@ -18,14 +18,16 @@ steps:
     command: 'custom'
     customCommand: 'install -g @angular/cli'
 
-- script: |
-    npm install @angular/core@19.0.0-next.8 @angular/common@19.0.0-next.8 @angular/material@19.0.0-next.8 @angular/cdk@19.0.0-next.8
-    npm install --legacy-peer-deps
-    npm cache clean --force
-    npm install
+- script: npm install @angular/core@18 @angular/common@18 @angular/material@18 @angular/cdk@18
+  displayName: 'Clean Yarn Cache'
+- script: npm cache clean --force
+  displayName: 'Clean Yarn Cache'
+- script: npm ci --prefer-offline
+  displayName: 'Clean Yarn Cache'
 
 
-  displayName: 'Angular Test and Build'
+
+
 - task: Npm@1
   displayName: 'Install Dependencies'
   inputs:
