@@ -27,7 +27,9 @@ steps:
 - task: Npm@1
   displayName: 'Install Dependencies'
   inputs:
-    command: 'install'
+    command: 'custom'
+    customCommand: 'install --force'
+
 
 # Install Snyk
 - task: Npm@1
