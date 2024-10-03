@@ -18,7 +18,6 @@ steps:
 
 - script: |
     npm install -g yarn
-    npm install -D @angular-devkit/build-angular
   displayName: 'Install Yarn'
 
 
@@ -28,7 +27,7 @@ steps:
   displayName: 'Install Angular CLI'
   inputs:
     command: 'custom'
-    customCommand: 'install -g @angular/cli'
+    customCommand: 'install -g @angular/cli@latest'
 
 
 
