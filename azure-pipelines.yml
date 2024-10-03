@@ -30,7 +30,10 @@ steps:
     customCommand: 'install -g @angular/cli'
 
 
-
+# Install Project Dependencies
+- script: |
+    yarn install
+  displayName: 'Install Project Dependencies'
 
 
 # Install Snyk
