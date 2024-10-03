@@ -18,8 +18,7 @@ steps:
     command: 'custom'
     customCommand: 'install -g @angular/cli'
 
-- script: npm install @angular/core@18 @angular/common@18 @angular/material@18 @angular/cdk@18
-  displayName: 'Clean Yarn Cache'
+
 - script: npm cache clean --force
   displayName: 'Clean Yarn Cache'
 - script: npm ci --prefer-offline
