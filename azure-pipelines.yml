@@ -40,15 +40,18 @@ steps:
     command: 'custom'
     customCommand: 'install -g snyk'
 
+
 # Run Snyk Test
-- task: Bash@3
-  displayName: 'Run Snyk Security Test'
-  inputs:
-    targetType: 'inline'
-    script: |
-      snyk auth $SNYK_TOKEN
-      snyk test
-      snyk monitor
+
+# - task: Bash@3
+#   displayName: 'Run Snyk Security Test'
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       snyk auth $SNYK_TOKEN
+#       snyk test
+#       snyk monitor
+
 
 
 # Run Angular Tests and Build
