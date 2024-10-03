@@ -58,7 +58,7 @@ steps:
 - task: CmdLine@2
   displayName: 'Angular Test and Build'
   inputs:
-    workingDirectory: '$(Build.SourcesDirectory)integration/platform-server'
+    workingDirectory: '$(Build.SourcesDirectory)/integration/platform-server'
     script: |
       ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
       ng build --prod
