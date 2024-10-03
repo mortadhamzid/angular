@@ -16,16 +16,11 @@ steps:
   displayName: 'Use Node.js '
 
 
-- script: |
-    npm install -g yarn
-    yarn cache clean
-    rm -rf node_modules yarn.lock
-    yarn install
-    ng update
-
-
-
+- script: npm install --global yarn
   displayName: 'Install Yarn'
+
+- script: yarn install
+  displayName: 'Install Node Packages'
 
 
 
@@ -42,11 +37,11 @@ steps:
 
 
 # Install Snyk
-- task: Npm@1
-  displayName: 'Install Snyk'
-  inputs:
-    command: 'custom'
-    customCommand: 'install -g snyk'
+#- task: Npm@1
+ # displayName: 'Install Snyk'
+  #inputs:
+   # command: 'custom'
+    #customCommand: 'install -g snyk'
 
 
 # Run Snyk Test
