@@ -52,7 +52,11 @@ steps:
 #       snyk test
 #       snyk monitor
 
-
+- task: Cache@2
+  inputs:
+    key: 'npm | "$(Agent.OS)" | package-lock.json'
+    path: $(npm config get cache)
+  displayName: 'Cache Node Modules'
 
 # Run Angular Tests and Build
 - task: CmdLine@2
@@ -61,7 +65,7 @@ steps:
     workingDirectory: '$(Build.SourcesDirectory)/integration/platform-server'
     script: |
       ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
-      ng build --prod
+      ng build --prod 
 
 
 # Generate Code Coverage Report
