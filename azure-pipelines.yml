@@ -12,7 +12,7 @@ pool:
 steps:
 - task: UseNode@1
   inputs:
-    version: '18.x'  # Specify the Node.js version you need (18.x or 20.x)
+    version: '12.x'  # Specify the Node.js version you need (18.x or 20.x)
   displayName: 'Use Node.js 18'
 
 
@@ -27,8 +27,7 @@ steps:
 - task: Npm@1
   displayName: 'Install Dependencies'
   inputs:
-    command: 'custom'
-    customCommand: 'install --force'
+    command: 'install'
 
 
 # Install Snyk
