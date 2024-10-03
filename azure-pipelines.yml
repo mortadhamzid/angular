@@ -18,7 +18,7 @@ steps:
 
 - script: |
     npm install -g yarn
-    npm install --save-dev @angular-devkit/build-angular
+    npm install --save-dev @angular-devkit/build-angular:karma
   displayName: 'Install Yarn'
 
 
