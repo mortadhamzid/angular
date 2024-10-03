@@ -62,7 +62,7 @@ steps:
   inputs:
     workingDirectory: '$(Build.SourcesDirectory)/integration/platform-server'
     script: |
-      yarn install
+      npm install
       ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
       ng build --prod 
 
