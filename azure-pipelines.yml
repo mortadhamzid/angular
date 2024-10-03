@@ -20,12 +20,7 @@ steps:
     npm install -g yarn
   displayName: 'Install Yarn'
 
-- script: yarn cache clean
-  displayName: 'Clean Yarn Cache'
 
-- script: |
-    yarn install --network-concurrency 1
-  displayName: 'Install Dependencies with Yarn'
 
 
 - task: Npm@1
