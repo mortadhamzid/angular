@@ -16,10 +16,10 @@ steps:
   displayName: 'Use Node.js '
 
 
-- script: |
-    npm install -g yarn
-
-  displayName: 'Install Yarn'
+#- script: |
+ #   npm install -g yarn
+#
+ # displayName: 'Install Yarn'
 
 
 
@@ -62,7 +62,7 @@ steps:
   inputs:
     workingDirectory: '$(Build.SourcesDirectory)/integration/platform-server'
     script: |
-      npm install
+      npm install --legacy-peer-deps
       ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
       ng build --prod 
 
