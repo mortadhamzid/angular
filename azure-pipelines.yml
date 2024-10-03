@@ -21,7 +21,7 @@ steps:
 
 - script: npm cache clean --force
   displayName: 'Clean Yarn Cache'
-- script: npm ci --prefer-offline
+- script: npm install
   displayName: 'Clean Yarn Cache'
 
 
