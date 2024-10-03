@@ -22,10 +22,6 @@ steps:
 - script: npm cache clean --force
   displayName: 'Clean Yarn Cache'
 
-- script: |
-    echo "Installing Node.js..."
-    sudo apt update
-  displayName: 'apt update'
 
 - script: |
     echo "Installing Node.js..."
