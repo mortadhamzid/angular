@@ -4,7 +4,6 @@ trigger:
 pool:
   name: 'Default'
 
-
 steps:
 - task: UseNode@1
   inputs:
@@ -17,18 +16,15 @@ steps:
     command: 'custom'
     customCommand: 'install -g @angular/cli'
 
-
 - script: npm cache clean --force
   displayName: 'Clean Yarn Cache'
-
-
-
-
 
 - task: Npm@1
   displayName: 'Install Dependencies'
   inputs:
-    command: 'install'
+    command: 'custom'
+    customCommand: 'install --legacy-peer-deps'
+
 # Run Angular Tests and Build
 - task: Bash@3
   displayName: 'Angular Test and Build'
