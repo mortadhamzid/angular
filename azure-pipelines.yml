@@ -1,82 +1,39 @@
-# Node.js with Angular
-# Build a Node.js project that uses Angular.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - main
 
 pool:
-  name: 'Default'
+  vmImage: 'ubuntu-latest'  # Switch to Ubuntu agent
 
 steps:
 - task: UseNode@1
   inputs:
     version: '20.x'  # Specify the Node.js version you need (18.x or 20.x)
-  displayName: 'Use Node.js '
+  displayName: 'Use Node.js'
 
 - script: yarn cache clean
-  displayName: 'clean cache'
-
+  displayName: 'Clean Yarn Cache'
 
 - script: npm install --global yarn
   displayName: 'Install Yarn'
 
-
 - script: yarn install
   displayName: 'Install Node Packages'
 
-
-
-
-
-- task: Npm@1
+- script: npm install -g @angular/cli@latest
   displayName: 'Install Angular CLI'
-  inputs:
-    command: 'custom'
-    customCommand: 'install -g @angular/cli@latest'
-
-
-
-
-
-# Install Snyk
-#- task: Npm@1
- # displayName: 'Install Snyk'
-  #inputs:
-   # command: 'custom'
-    #customCommand: 'install -g snyk'
-
-
-# Run Snyk Test
-
-# - task: Bash@3
-#   displayName: 'Run Snyk Security Test'
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#       snyk auth $SNYK_TOKEN
-#       snyk test
-#       snyk monitor
-
-
 
 # Run Angular Tests and Build
-- task: CmdLine@2
+- script: |
+    ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
+    ng build --prod
   displayName: 'Angular Test and Build'
-  inputs:
-    workingDirectory: '$(Build.SourcesDirectory)/integration/platform-server'
-    script: |
-      ng test --no-watch --no-progress --browsers ChromeHeadless --code-coverage
-      ng build --prod 
-
 
 # Generate Code Coverage Report
 - task: reportgenerator@5
   displayName: 'Generate Code Coverage Report'
   inputs:
-    reports: 'coverage\iRED-Web-Portal\cobertura-coverage.xml'
-    targetdir: 'coverage\iRED-Web-Portal\Reports'
+    reports: 'coverage/iRED-Web-Portal/cobertura-coverage.xml'
+    targetdir: 'coverage/iRED-Web-Portal/Reports'
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results'
@@ -88,8 +45,8 @@ steps:
   displayName: 'Publish Code Coverage'
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)\coverage\iRED-Web-Portal\cobertura-coverage.xml'
-    reportDirectory: '$(Build.SourcesDirectory)\coverage\iRED-Web-Portal\Reports'
+    summaryFileLocation: '$(Build.SourcesDirectory)/coverage/iRED-Web-Portal/cobertura-coverage.xml'
+    reportDirectory: '$(Build.SourcesDirectory)/coverage/iRED-Web-Portal/Reports'
 
 - task: ArchiveFiles@2
   displayName: 'Archive Artifacts'
@@ -108,9 +65,7 @@ steps:
     publishLocation: 'Container'
 
 # Send Slack Notification
-- task: Bash@3
+- script: |
+    curl -X POST -H 'Content-type: application/json' \
+    --data '{"text":"Build $(Build.BuildId) for Angular SPA is successful."}' $SLACK_WEBHOOK_URL
   displayName: 'Send Slack Notification'
-  inputs:
-    targetType: 'inline'
-    script: |
-      curl -X POST -H 'Content-type: application/json' --data '{"text":"Build $(Build.BuildId) for Angular SPA is successful."}' $SLACK_WEBHOOK_URL
