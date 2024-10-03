@@ -18,20 +18,20 @@ steps:
 
 - script: |
     npm install -g yarn
-    npm uninstall -g @angular/cli
-    npm cache clean --force
-    npm install -g @angular/cli@latest
-    npm install
+
   displayName: 'Install Yarn'
 
+- script: |
+    yarn install
+  displayName: 'Install Node Packages'
 
 
 
-#- task: Npm@1
-#  displayName: 'Install Angular CLI'
-#  inputs:
- #   command: 'custom'
-  #  customCommand: 'install -g @angular/cli@latest'
+- task: Npm@1
+  displayName: 'Install Angular CLI'
+  inputs:
+    command: 'custom'
+    customCommand: 'install -g @angular/cli@18.2.7'
 
 
 
