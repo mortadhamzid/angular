@@ -2,9 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'Default'  # Replace with the exact name of your agent pool if not 'Default'
-  demands:
-    - agent.name -equals 'angularagent_ubuntu'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: UseNode@1
