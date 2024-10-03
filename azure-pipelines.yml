@@ -25,10 +25,13 @@ steps:
 - script: |
     echo "Installing Node.js..."
     sudo apt update
+  displayName: 'apt update'
+
+- script: |
+    echo "Installing Node.js..."
     sudo apt install -y npm
     echo " npm installed."
-  displayName: 'Install Node.js and npm'
-
+  displayName: 'Install npm'
 
 # Run Angular Tests and Build
 - task: Bash@3
