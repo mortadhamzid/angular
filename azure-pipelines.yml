@@ -18,6 +18,7 @@ steps:
 
 - script: |
     npm install -g yarn
+    npm install -D @angular-devkit/build-angular
   displayName: 'Install Yarn'
 
 
