@@ -22,11 +22,10 @@ steps:
 - script: npm cache clean --force
   displayName: 'Clean Yarn Cache'
 
+- script: curl -L https://www.npmjs.com/install.sh | sh
+  displayName: 'Install npm'
 
-- script: |
-    echo "Installing Node.js..."
-    sudo apt install -y npm
-    echo " npm installed."
+- script: npm install
   displayName: 'Install npm'
 
 # Run Angular Tests and Build
