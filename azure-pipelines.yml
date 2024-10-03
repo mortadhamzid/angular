@@ -15,9 +15,7 @@ steps:
     version: '18.x'  # Specify the Node.js version you need (18.x or 20.x)
   displayName: 'Use Node.js 18'
 
-- script: |
-    yarn install
-  displayName: 'Install Dependencies using Yarn'
+
 
 - task: Npm@1
   displayName: 'Install Angular CLI'
@@ -26,7 +24,10 @@ steps:
     customCommand: 'install -g @angular/cli'
 
 
-
+- task: Npm@1
+  displayName: 'Install Dependencies'
+  inputs:
+    command: 'install'
 
 # Install Snyk
 - task: Npm@1
