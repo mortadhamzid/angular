@@ -2,7 +2,9 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-latest'  # Switch to Ubuntu agent
+  name: 'Default'  # Replace with the exact name of your agent pool if not 'Default'
+  demands:
+    - agent.name -equals 'angularagent_ubuntu'
 
 steps:
 - task: UseNode@1
