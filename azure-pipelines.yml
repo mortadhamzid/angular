@@ -5,18 +5,18 @@ pool:
   name: 'Default'
 
 steps:
-#- task: UseNode@1
-#  inputs:
-#    version: '18.19.1'
-#  displayName: 'Install Node.js'
+- checkout: self
 
-- task: Npm@1
-  displayName: 'Install Angular CLI'
+- task: UseNode@1
   inputs:
-    command: 'custom'
-    customCommand: 'install -g @angular/cli'
+    version: '20.11.1'
+  displayName: 'Install Node.js'
 
 
+
+
+- script: npm install
+  displayName: 'Install npm dependencies'
 
 
 
