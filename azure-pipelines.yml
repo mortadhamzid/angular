@@ -24,7 +24,7 @@ steps:
   displayName: 'Clean Yarn Cache'
 
 - script: |
-    yarn install --skip-integrity-check
+    yarn install --network-concurrency 1
   displayName: 'Install Dependencies with Yarn'
 
 
